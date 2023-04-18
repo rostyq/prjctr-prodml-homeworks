@@ -1,0 +1,26 @@
+name: Homework 2 CI
+
+on:
+  push:
+    paths:
+      - "h2-infrastucture-setup/**"
+  pull_request:
+    branches:
+      - main
+    
+jobs:
+  test:
+    name: Dummy Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@2
+
+      - name: Hello World
+        run: |
+          echo 'Hello World!'
+
+      - name: List files
+        run: |
+          ls -R
+    
