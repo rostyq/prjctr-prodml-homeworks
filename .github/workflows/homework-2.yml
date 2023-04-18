@@ -22,5 +22,5 @@ jobs:
 
       - name: List files
         run: |
-          ls -R
+          ls -R h2-infrastucture-setup/**
     
