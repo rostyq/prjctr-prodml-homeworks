@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-webapp
+spec:
+  selector:
+    matchLabels:
+      app: deploy-webapp
+  template:
+    metadata:
+      labels:
+        app: deploy-webapp
+    spec:
+      containers:
+      - name: deploy-webapp
+        image: rostyq/prjctr-prodml-h2-webapp
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080

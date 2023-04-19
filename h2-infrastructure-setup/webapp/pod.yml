@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-webapp
+spec:
+  containers:
+  - name: pod-webapp
+    image: rostyq/prjctr-prodml-h2-webapp
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
