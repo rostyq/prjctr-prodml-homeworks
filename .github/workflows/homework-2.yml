@@ -74,4 +74,32 @@ jobs:
           push: true
           tags: ${{ vars.DOCKERHUB_USERNAME }}/${{ env.IMAGE_PREFIX }}-${{ env.IMAGE_NAME }}:latest
     
-    
+  test-k8s-deploy:
+    name: Test K8s Deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create K8s Kind Cluster
+        uses: helm/kind-action@v1.4.0
+      
+      - name: Checkout source
+        uses: actions/checkout@v3
+      
+      - name: Deploy application
+        run: |
+          kubectl create -f h2-infrastructure-setup/webapp/deploy.yml
+          kubectl wait --for=condition=available --timeout=90s deployment/deploy-webapp
+
+  test-k8s-job:
+    name: Test K8s Job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create K8s Kind Cluster
+        uses: helm/kind-action@v1.4.0
+      
+      - name: Checkout source
+        uses: actions/checkout@v3
+      
+      - name: Run job
+        run: |
+          kubectl create -f h2-infrastructure-setup/ml/job.yml
+          kubectl wait --for=condition=complete --timeout=90s job/job-ml
