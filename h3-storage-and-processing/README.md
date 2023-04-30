@@ -5,19 +5,19 @@
 1. Create persistent volume claim.
 
 ```
-kubectl create -f minio-pvc.yml
+kubectl create -f k8s/minio-pvc.yml
 ```
 
 2. Create Minio deployment.
 
 ```
-kubectl create -f minio-deploy.yml
+kubectl create -f k8s/minio-deploy.yml
 ```
 
 3. Create Minio service.
 
 ```
-kubectl create -f minio-service.yml
+kubectl create -f k8s/minio-service.yml
 ```
 
 Port forward:
