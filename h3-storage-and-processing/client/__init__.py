@@ -96,7 +96,6 @@ class Client:
         For `**kwargs` see `minio.Minio.put_object`.
         """
         obj = self.minio.stat_object(object_name=name, bucket_name=bucket or self.bucket)
-        print(obj)
 
         return self.create(
             name=name,
