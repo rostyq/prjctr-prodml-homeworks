@@ -68,5 +68,6 @@ jobs:
 
       - name: Run test job
         run: |
+          cd h3-storage-and-processing
           kubectl create -f k8s/test-job.yml
           kubectl wait --for=condition=complete job/minio-client-test
