@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: minio-client-test
+spec:
+  ttlSecondsAfterFinished: 0
+  template:
+    spec:
+      containers:
+      - name: minio-client-test
+        image: rostyq/prjctr-prodml-h3-test
+        env:
+          - name: MINIO_ENDPOINT
+            value: minio-service:9000
+      restartPolicy: Never
