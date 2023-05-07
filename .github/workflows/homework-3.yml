@@ -1,0 +1,25 @@
+name: "Homework 3: Storage and Processing"
+
+on:
+  pull_request:
+    branches:
+      - main
+    
+jobs:
+  test-k8s-minio-deploy:
+    name: Test Minio K8s Deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create K8s Kind Cluster
+        uses: helm/kind-action@v1.4.0
+      
+      - name: Checkout source
+        uses: actions/checkout@v3
+      
+      - name: Deploy Minio
+        run: |
+          cd h3-storage-and-processing
+          kubectl create -f k8s/minio-pvc.yml
+          kubectl create -f k8s/minio-deploy.yml
+          kubectl create -f k8s/minio-service.yml
+          kubectl wait --for=condition=available --timeout=90s deployment/minio-deploy
