@@ -9,10 +9,11 @@ from minio.error import S3Error
 from client import Client
 
 
-class ObjectCase(dataclass):
+@dataclass
+class ObjectCase:
+    data: bytes
     object_name: str = "test-object"
     content_type: str = "text/plain"
-    data: str
 
 
 ENDPOINT = getenv("MINIO_ENDPOINT", "localhost:9000")
@@ -47,12 +48,12 @@ def bucket(minio: Minio):
 
 @pytest.fixture()
 def object_case() -> ObjectCase:
-    return ObjectCase(data="Hello, World!")
+    return ObjectCase(data=b"Hello, World!")
 
 
 @pytest.fixture()
 def update_data() -> str:
-    return "Hello, New World!"
+    return b"Hello, New World!"
 
 
 @pytest.fixture()
@@ -111,7 +112,7 @@ def test_update(
         assert response.data == update_data
 
 
-def test_delete(client: Client, minio: Minio):
+def test_delete(client: Client, minio: Minio, object_case: ObjectCase):
     # Arrange
     object_name = object_case.object_name
     content_type = object_case.content_type
