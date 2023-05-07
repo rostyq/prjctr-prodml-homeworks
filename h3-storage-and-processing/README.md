@@ -25,3 +25,25 @@ Port forward:
 ```
 kubectl port-forward svc/minio-service 9090:9090 9000:9000
 ```
+
+## Test python client locally
+
+### Docker
+
+1. Build test container:
+
+```
+docker build -t minio-client-test:latest .
+```
+
+2. Ensure minio is deployed locally and port-forward 9000:9000 is working. Run:
+
+```
+docker run -e MINIO_ENDPOINT="host.docker.internal:9000" minio-client-test:latest 
+```
+
+### Kubernetes
+
+```
+kubectl create -f k8s/test-job.yml
+```
